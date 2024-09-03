@@ -1,6 +1,7 @@
 import unittest
+from unittest import mock
 from ScrabbleScore import LETTERS
-from ScrabbleScore import ScoreCalculator
+from ScrabbleScore import ScrabbleScore, ScoreCalculator
 
 
 class ScrabbleScoreTestCase(unittest.TestCase):
@@ -14,6 +15,7 @@ class ScrabbleScoreTestCase(unittest.TestCase):
     val_10 = list("QZ")
 
     scoreCalc = ScoreCalculator()
+    scrabble = ScrabbleScore()
 
     # letters dictionary unit test
     def test_letters(self):
@@ -51,11 +53,30 @@ class ScrabbleScoreTestCase(unittest.TestCase):
     # scrabble score addition unit test
     def test_score_addition(self):
         self.assertEqual(14, self.scoreCalc.calc("CABBAGE"))
-        
+
     def test_calc_upper_and_lower_case(self):
         self.assertEqual(8, self.scoreCalc.calc("tomato"))
         self.assertEqual(8, self.scoreCalc.calc("Tomato"))
         self.assertEqual(14, self.scoreCalc.calc("CaBbAgE"))
+
+    @mock.patch("ScrabbleScore.print", create=True)
+    @mock.patch("ScrabbleScore.input", create=True)
+    def test_user_input(self, mocked_input, mocked_print):
+        # invalid input with number
+        mocked_input.side_effect = ["ab0"]
+        self.scrabble.run()
+        self.assertEqual("Please enter alphabet only.", mocked_print.call_args.args[0])
+
+        # invalid input with symbols
+        mocked_input.side_effect = ["#$%"]
+        self.scrabble.run()
+        self.assertEqual("Please enter alphabet only.", mocked_print.call_args.args[0])
+
+        # legal input
+        mocked_input.side_effect = ["cabbage"]
+        self.scrabble.run()
+        self.assertEqual('Score of "cabbage" is: 14', mocked_print.call_args.args[0])
+
 
 if __name__ == "__main__":
     unittest.main()
