@@ -51,7 +51,11 @@ class ScrabbleScoreTestCase(unittest.TestCase):
     # scrabble score addition unit test
     def test_score_addition(self):
         self.assertEqual(14, self.scoreCalc.calc("CABBAGE"))
-
+        
+    def test_calc_upper_and_lower_case(self):
+        self.assertEqual(8, self.scoreCalc.calc("tomato"))
+        self.assertEqual(8, self.scoreCalc.calc("Tomato"))
+        self.assertEqual(14, self.scoreCalc.calc("CaBbAgE"))
 
 if __name__ == "__main__":
     unittest.main()
