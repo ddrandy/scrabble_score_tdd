@@ -11,3 +11,13 @@ LETTERS = {
     }.items()
     for x in key
 }
+
+
+class ScoreCalculator(object):
+
+    def calc(self, word: str):
+        sum = 0
+        for char in word:
+            if char in LETTERS:
+                sum += LETTERS[char]
+        return sum
