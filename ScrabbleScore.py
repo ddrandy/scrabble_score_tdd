@@ -17,7 +17,7 @@ class ScoreCalculator(object):
 
     def calc(self, word: str):
         sum = 0
-        for char in word:
+        for char in word.upper():
             if char in LETTERS:
                 sum += LETTERS[char]
         return sum
