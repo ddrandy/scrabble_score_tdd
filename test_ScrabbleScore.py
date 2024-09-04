@@ -98,6 +98,11 @@ class ScrabbleScoreTestCase(unittest.TestCase):
         self.assertEqual(5, tick_called)
         self.assertEqual(1, timeout_called)
 
+    def test_word_length_generation(self):
+        for _ in range(10000):
+            length = self.scrabble.random_letter_length()
+            self.assertIn(length, range(1, 13))
+
 
 if __name__ == "__main__":
     unittest.main()
