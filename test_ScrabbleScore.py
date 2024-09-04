@@ -103,6 +103,12 @@ class ScrabbleScoreTestCase(unittest.TestCase):
             length = self.scrabble.random_letter_length()
             self.assertIn(length, range(1, 13))
 
+    def test_word_spelling(self):
+        self.assertTrue(self.scrabble.check_spelling("apple"))
+        self.assertTrue(self.scrabble.check_spelling("Cabbage"))
+        self.assertFalse(self.scrabble.check_spelling("aple"))
+        self.assertFalse(self.scrabble.check_spelling("oranga"))
+        
 
 if __name__ == "__main__":
     unittest.main()
