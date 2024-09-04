@@ -2,6 +2,13 @@ import time
 import threading
 from typing import Callable
 import random
+import nltk
+
+try:
+    nltk.data.find("corpora/words.zip")
+except LookupError:
+    nltk.download("words")
+from nltk.corpus import words
 
 LETTERS = {
     x: y
@@ -30,6 +37,7 @@ class ScoreCalculator(object):
 
 class ScrabbleScore:
     scoreCalc = ScoreCalculator()
+    word_list = set(words.words())
 
     def run(self):
         word = input("Please enter a word:")
@@ -61,3 +69,6 @@ class ScrabbleScore:
 
     def random_letter_length(self):
         return random.randint(1, 12)
+
+    def check_spelling(self, word):
+        return word.lower() in self.word_list
