@@ -77,6 +77,27 @@ class ScrabbleScoreTestCase(unittest.TestCase):
         self.scrabble.run()
         self.assertEqual('Score of "cabbage" is: 14', mocked_print.call_args.args[0])
 
+    def test_countdown_timer(self):
+        tick_called = 0
+        timeout_called = 0
+
+        def tick(tick):
+            nonlocal tick_called
+            # print("tick {}".format(tick))
+            tick_called += 1
+
+        def timeout():
+            nonlocal timeout_called
+            # print("timeout")
+            timeout_called += 1
+
+        timer_thread = self.scrabble.countdown(
+            0.05, 0.01, tick_call=tick, timeout_call=timeout
+        )
+        timer_thread.join()
+        self.assertEqual(5, tick_called)
+        self.assertEqual(1, timeout_called)
+
 
 if __name__ == "__main__":
     unittest.main()
