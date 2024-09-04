@@ -1,6 +1,7 @@
 import time
 import threading
 from typing import Callable
+import random
 
 LETTERS = {
     x: y
@@ -57,3 +58,6 @@ class ScrabbleScore:
         countdown_thread.daemon = True
         countdown_thread.start()
         return countdown_thread
+
+    def random_letter_length(self):
+        return random.randint(1, 12)
