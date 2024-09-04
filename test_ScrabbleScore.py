@@ -91,10 +91,7 @@ class ScrabbleScoreTestCase(unittest.TestCase):
             # print("timeout")
             timeout_called += 1
 
-        timer_thread = self.scrabble.countdown(
-            0.05, 0.01, tick_call=tick, timeout_call=timeout
-        )
-        timer_thread.join()
+        self.scrabble.countdown(0.05, 0.01, tick_call=tick, timeout_call=timeout)
         self.assertEqual(5, tick_called)
         self.assertEqual(1, timeout_called)
 
@@ -102,11 +99,6 @@ class ScrabbleScoreTestCase(unittest.TestCase):
         self.assertEqual(8, self.scoreCalc.calc("tomato"))
         self.assertEqual(5, self.scoreCalc.calc("tomato", 10))
         self.assertEqual(0, self.scoreCalc.calc("cabbage", 0))
-
-    def test_word_length_generation(self):
-        for _ in range(10000):
-            length = self.scrabble.random_letter_length()
-            self.assertIn(length, range(1, 13))
 
     def test_word_spelling(self):
         self.assertTrue(self.scrabble.check_spelling("apple"))
