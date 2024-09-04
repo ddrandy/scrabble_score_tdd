@@ -98,6 +98,11 @@ class ScrabbleScoreTestCase(unittest.TestCase):
         self.assertEqual(5, tick_called)
         self.assertEqual(1, timeout_called)
 
+    def test_countdown_score(self):
+        self.assertEqual(8, self.scoreCalc.calc("tomato"))
+        self.assertEqual(5, self.scoreCalc.calc("tomato", 10))
+        self.assertEqual(0, self.scoreCalc.calc("cabbage", 0))
+
     def test_word_length_generation(self):
         for _ in range(10000):
             length = self.scrabble.random_letter_length()
@@ -108,7 +113,7 @@ class ScrabbleScoreTestCase(unittest.TestCase):
         self.assertTrue(self.scrabble.check_spelling("Cabbage"))
         self.assertFalse(self.scrabble.check_spelling("aple"))
         self.assertFalse(self.scrabble.check_spelling("oranga"))
-        
+
 
 if __name__ == "__main__":
     unittest.main()

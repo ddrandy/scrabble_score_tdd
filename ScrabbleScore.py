@@ -23,16 +23,17 @@ LETTERS = {
     }.items()
     for x in key
 }
+COUNTDOWN_TIME = 15
 
 
 class ScoreCalculator(object):
 
-    def calc(self, word: str):
+    def calc(self, word: str, timeleft=COUNTDOWN_TIME):
         sum = 0
         for char in word.upper():
             if char in LETTERS:
                 sum += LETTERS[char]
-        return sum
+        return sum * timeleft // COUNTDOWN_TIME
 
 
 class ScrabbleScore:
