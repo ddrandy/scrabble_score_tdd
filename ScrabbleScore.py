@@ -55,7 +55,9 @@ class Screen:
     prompt_line = 5
     input_line = 6
 
-    def __init__(self) -> None:
+    def _init_win(self) -> None:
+        if hasattr(self, "win"):
+            return
         win = self.win = curses.initscr()
         curses.reset_prog_mode()
         win.clrtobot()
@@ -85,6 +87,8 @@ class Screen:
         self._print_line(line, "", True)
 
     def close(self):
+        if not hasattr(self, "win"):
+            return
         self.win.clear()
         self.win.scrollok(True)
         curses.endwin()
@@ -94,6 +98,7 @@ class Screen:
         self._print_line(line, self.prompt_hint.format(length, timeout))
 
     def _print_line(self, line: int, message: str, clear_line=True):
+        self._init_win()
         win = self.win
         y, x = win.getyx()
         win.move(line, 0)
@@ -104,6 +109,7 @@ class Screen:
         win.refresh()
 
     def printer_input(self, word, on_enter_pressed: Callable, on_exit: Callable):
+        self._init_win()
         win = self.win
         win.move(self.input_line, 0)
         while True:
