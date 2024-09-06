@@ -1,5 +1,6 @@
 import unittest
 from ScrabbleScore import LETTERS
+from ScrabbleScore import ScoreCalculator
 
 
 class ScrabbleScoreTestCase(unittest.TestCase):
@@ -11,6 +12,8 @@ class ScrabbleScoreTestCase(unittest.TestCase):
     val_5 = ["K"]
     val_8 = list("JX")
     val_10 = list("QZ")
+
+    scoreCalc = ScoreCalculator()
 
     # letters dictionary unit test
     def test_letters(self):
@@ -44,6 +47,10 @@ class ScrabbleScoreTestCase(unittest.TestCase):
     def check_letter_value(self, list: list, val: int):
         for char in list:
             self.assertEqual(val, LETTERS[char])
+
+    # scrabble score addition unit test
+    def test_score_addition(self):
+        self.assertEqual(14, self.scoreCalc.calc("CABBAGE"))
 
 
 if __name__ == "__main__":
