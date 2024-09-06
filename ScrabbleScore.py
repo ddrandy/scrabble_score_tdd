@@ -35,7 +35,7 @@ class ScoreCalculator(object):
         for char in word.upper():
             if char in LETTERS:
                 sum += LETTERS[char]
-        return sum * timeleft // COUNTDOWN_TIME
+        return max(sum * timeleft // COUNTDOWN_TIME, 0)
 
 
 class Screen:
